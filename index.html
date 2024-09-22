@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusAdminPro</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+
+        /* Header Styling */
+        .header {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Container Styling */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Main content styling */
+        .content {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #0066cc;
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Login form styling */
+        .login {
+            width: 350px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .login h3 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        .login input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .login button {
+            width: 100%;
+            padding: 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login button:hover {
+            background-color: #218838;
+        }
+
+        /* Footer styling */
+        .footer {
+            background-color: #0066cc;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 50px;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .content {
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+
+            .login {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>CampusAdminPro</h1>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <div class="content">
+            <!-- Card 1 -->
+            <div class="card">
+                <h2>Institutions</h2>
+                <p>Institutions affiliated with our college can log in here to manage affiliations, student registration, academics, and payments. View personal information, attendance, internal evaluations, and mark sheets of students.</p>
+            </div>
+            <!-- Card 2 -->
+            <div class="card">
+                <h2>Students</h2>
+                <p>Registered students can log in to view academic records, attendance, grades, and credits. Download mark sheets and communicate with the college administration securely.</p>
+            </div>
+            <!-- Card 3 -->
+            <div class="card">
+                <h2>Administration</h2>
+                <p>Administration can access tools for managing institutional data, processing student admissions, and monitoring academic activities. View fee payments, academic records, and detailed reports.</p>
+            </div>
+        </div>
+
+        <!-- Login Form Section -->
+        <div class="login">
+            <h3>Sign In</h3>
+            <input type="text" placeholder="Enter username" required>
+            <input type="password" placeholder="Enter password" required>
+            <button>Login</button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <p>&copy; 2024 College Administration Portal. All rights reserved.</p>
+    </div>
+
+</body>
+</html>

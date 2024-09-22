@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* Header Styling */
+        .header {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        /* Container styling */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        form label {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        form input {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        form button {
+            padding: 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #218838;
+        }
+
+        /* Tabs Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tabs button {
+            padding: 15px 30px;
+            background-color: #f0f4f8;
+            color: #333;
+            border: none;
+            border-radius: 10px 10px 0 0;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .tabs button.active {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        /* Hide inactive forms */
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #0066cc;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+            }
+            .tabs button {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>College Registration Portal</h1>
+    </div>
+
+    <!-- Tabs for Staff, Students, and Teachers -->
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showForm('staff')">Staff Registration</button>
+            <button class="tab-btn" onclick="showForm('student')">Student Registration</button>
+            <button class="tab-btn" onclick="showForm('teacher')">Teacher Registration</button>
+        </div>
+
+        <!-- Staff Registration Form -->
+        <div id="staff" class="form-section active">
+            <h2>Staff Registration</h2>
+            <form>
+                <label for="staff-name">Full Name</label>
+                <input type="text" id="staff-name" placeholder="Enter full name" required>
+
+                <label for="staff-email">Email Address</label>
+                <input type="email" id="staff-email" placeholder="Enter email address" required>
+
+                <label for="staff-department">Department</label>
+                <input type="text" id="staff-department" placeholder="Enter department" required>
+
+                <label for="staff-password">Password</label>
+                <input type="password" id="staff-password" placeholder="Enter password" required>
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
+
+        <!-- Student Registration Form -->
+        <div id="student" class="form-section">
+            <h2>Student Registration</h2>
+            <form>
+                <label for="student-name">Full Name</label>
+                <input type="text" id="student-name" placeholder="Enter full name" required>
+
+                <label for="student-email">Email Address</label>
+                <input type="email" id="student-email" placeholder="Enter email address" required>
+
+                <label for="student-roll">Roll Number</label>
+                <input type="text" id="student-roll" placeholder="Enter roll number" required>
+
+                <label for="student-course">Course</label>
+                <input type="text" id="student-course" placeholder="Enter course" required>
+
+                <label for="student-password">Password</label>
+                <input type="password" id="student-password" placeholder="Enter password" required>
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
+
+        <!-- Teacher Registration Form -->
+        <div id="teacher" class="form-section">
+            <h2>Teacher Registration</h2>
+            <form>
+                <label for="teacher-name">Full Name</label>
+                <input type="text" id="teacher-name" placeholder="Enter full name" required>
+
+                <label for="teacher-email">Email Address</label>
+                <input type="email" id="teacher-email" placeholder="Enter email address" required>
+
+                <label for="teacher-subject">Subject Specialization</label>
+                <input type="text" id="teacher-subject" placeholder="Enter subject specialization" required>
+
+                <label for="teacher-password">Password</label>
+                <input type="password" id="teacher-password" placeholder="Enter password" required>
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 College Registration Portal. All rights reserved.</p>
+    </div>
+
+    <!-- Script to toggle between forms -->
+    <script>
+        function showForm(formId) {
+            // Hide all forms
+            var forms = document.querySelectorAll('.form-section');
+            forms.forEach(function(form) {
+                form.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            var buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(function(button) {
+                button.classList.remove('active');
+            });
+
+            // Show the selected form
+            document.getElementById(formId).classList.add('active');
+
+            // Set active class on clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

@@ -63,10 +63,3 @@
 
 Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
 
-## License
-
-This project is licensed under the Adith License - see the [LICENSE](LICENSE) file for details.
-
----
-
-Feel free to adjust any sections to better fit your project details or style!

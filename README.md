@@ -1,6 +1,4 @@
-Here’s an updated project description for your GitHub repository, incorporating the specifics about using Python, Django, and SQLite:
 
----
 
 # Campus Admin Pro
 

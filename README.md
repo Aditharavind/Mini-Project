@@ -28,7 +28,7 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/campus-admin-pro.git
+   git clone https://github.com/Aditharavind/mini-project.git
    ```
 
 2. Navigate to the project directory:
@@ -65,7 +65,7 @@ Contributions are welcome! If you have suggestions for improvements or new featu
 
 ## License
 
-This project is licensed under the [Your License Here] License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Adith License - see the [LICENSE](LICENSE) file for details.
 
 ---
 

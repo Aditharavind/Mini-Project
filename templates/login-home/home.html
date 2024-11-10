@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Home</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            transition: background 0.5s ease-in-out;
+        }
+
+        /* Background Color Schemes */
+        /* You can choose any of these for different moods or times */
+        
+        /* Morning Scheme */
+        .morning {
+            background: linear-gradient(135deg, #FFD89B, #19547B); /* Sunrise */
+        }
+
+        /* Evening Scheme */
+        .evening {
+            background: linear-gradient(135deg, #FF512F, #DD2476); /* Warm sunset */
+        }
+
+        /* Night Scheme */
+        .night {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Nighttime cool */
+        }
+
+        /* Cool Ocean Scheme */
+        .ocean {
+            background: linear-gradient(135deg, #00C9FF, #92FE9D); /* Ocean breeze */
+        }
+
+        /* Logout Button */
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .logout-button:hover {
+            background-color: #45a049;
+        }
+
+        /* To-Do List */
+        .todo-container {
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            width: 300px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .todo-header {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .todo-form input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .todo-form button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .todo-form button:hover {
+            background-color: #45a049;
+        }
+
+        .todo-list {
+            margin-top: 15px;
+        }
+
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+
+        .completed-tasks {
+            margin-top: 20px;
+        }
+
+        .completed-tasks h4 {
+            margin-bottom: 10px;
+        }
+
+        .quote {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .container {
+            width: 350px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #4CAF50;
+        }
+
+        .buttons button {
+            width: 180px;
+            padding: 15px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            margin: 10px;
+        }
+
+        .buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            color: white;
+        }
+
+    </style>
+</head>
+<body class="morning"> <!-- Default background scheme: Morning -->
+
+    <!-- Logout Button -->
+    <a href="{% url 'logout' %}"><button class="logout-button" onclick="logout()">Logout</button></a>
+
+    <!-- To-Do List -->
+    <div class="todo-container">
+        <h2 class="todo-header">To-Do List</h2>
+        <form class="todo-form" onsubmit="addTask(event)">
+            <input type="text" id="newTask" placeholder="New Task" required>
+            <button type="submit">Add</button>
+        </form>
+        <div class="todo-list" id="todoList"></div>
+        <div class="completed-tasks">
+            <h4>Completed Tasks</h4>
+            <div id="completedTasks"></div>
+        </div>
+    </div>
+
+    <!-- Random Motivational Quote -->
+    <div class="quote" id="quote"></div>
+
+    <div class="container">
+        <h1>Student Dashboard</h1>
+        <p>Welcome to your student portal. Access your personal GPT assistant or explore other resources.</p>
+
+        <div class="buttons">
+            <button><a href="http://localhost:8080/">Access GPT Assistant</a></button>
+            <button><a href="#">Explore Resources</a></button>
+        </div>
+    </div>
+
+    <script>
+        // Logout function (for now it just refreshes the page)
+        function logout() {
+            window.location.reload();
+        }
+
+        // To-Do List Functionality
+        let tasks = [];
+        let completedTasks = [];
+
+        function addTask(event) {
+            event.preventDefault();
+            const taskInput = document.getElementById('newTask');
+            const task = taskInput.value;
+            tasks.push(task);
+            taskInput.value = '';
+            renderTasks();
+        }
+
+        function renderTasks() {
+            const todoList = document.getElementById('todoList');
+            const completedList = document.getElementById('completedTasks');
+            todoList.innerHTML = '';
+            completedList.innerHTML = '';
+
+            tasks.forEach((task, index) => {
+                const taskItem = document.createElement('div');
+                taskItem.classList.add('todo-item');
+                taskItem.innerHTML = `
+                    <span>${task}</span>
+                    <input type="checkbox" onclick="completeTask(${index})">
+                `;
+                todoList.appendChild(taskItem);
+            });
+
+            completedTasks.forEach((task) => {
+                const completedItem = document.createElement('div');
+                completedItem.classList.add('todo-item');
+                completedItem.innerHTML = `<span>${task}</span>`;
+                completedList.appendChild(completedItem);
+            });
+        }
+
+        function completeTask(index) {
+            const task = tasks.splice(index, 1)[0];
+            completedTasks.push(task);
+            renderTasks();
+        }
+
+        // Random Motivational Quotes
+        const quotes = [
+            "Believe you can and you're halfway there.",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+            "The only limit to our realization of tomorrow is our doubts of today.",
+            "The future belongs to those who believe in the beauty of their dreams."
+        ];
+
+        function displayRandomQuote() {
+            const quoteElement = document.getElementById('quote');
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            quoteElement.textContent = quotes[randomIndex];
+        }
+        displayRandomQuote();
+        setInterval(displayRandomQuote, 15000); // Change quote every 15 seconds
+
+    </script>
+
+</body>
+</html>

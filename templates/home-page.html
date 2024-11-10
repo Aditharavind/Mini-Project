@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Administration Portal</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            transition: background-color 1s ease;
+        }
+
+        /* Background Colors for Different Times of Day */
+        .morning {
+            background: linear-gradient(135deg, #FFD89B, #19547B); /* Sunrise */
+        }
+
+        .day {
+            background: linear-gradient(135deg, #87CEEB, #FFEE88); /* Daytime */
+        }
+
+        .evening {
+            background: linear-gradient(135deg, #FF8008, #FFC837); /* Sunset */
+        }
+
+        .night {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Nighttime */
+        }
+
+        /* Sun and Moon */
+        .sun, .moon {
+            position: absolute;
+            border-radius: 50%;
+            transition: all 1.5s ease-in-out;
+        }
+
+        .sun {
+            background: #FFD700;
+            width: 100px;
+            height: 100px;
+            top: 50px;
+            right: 100px;
+        }
+
+        .moon {
+            background: #F0F8FF;
+            width: 70px;
+            height: 70px;
+            bottom: 50px;
+            left: 100px;
+            display: none;
+        }
+
+        /* Sun and Moon Positions */
+        body.night .moon {
+            display: block;
+        }
+
+        /* Date & Time Styles */
+        #dateTime {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 16px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .container {
+            width: 350px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #4CAF50;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .buttons button {
+            width: 130px;
+            padding: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .form-container {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message {
+            color: red;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Date and Time -->
+    <div id="dateTime"></div>
+
+    <!-- Sun and Moon for Day and Night Animation -->
+    <div class="sun"></div>
+    <div class="moon"></div>
+
+    <div class="container">
+        <h1>College Admin Portal</h1>
+
+        <div class="buttons">
+            <button id="loginBtn">Login</button>
+            <button id="registerBtn">Register</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" class="form-container">
+            <input type="email" id="loginEmail" placeholder="Enter your email" required>
+            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            <button onclick="login()">Login</button>
+        </div>
+
+        <!-- Register Form -->
+        <div id="registerForm" class="form-container">
+            <select id="registerRole">
+                <option value="" disabled selected>Select Role</option>
+                <option value="student">Student</option>
+                <option value="staff">Staff</option>
+            </select>
+            <input type="text" id="registerName" placeholder="Enter your name" required>
+            <input type="email" id="registerEmail" placeholder="Enter your email" required>
+            <input type="password" id="registerPassword" placeholder="Create a password" required>
+            <button onclick="register()">Register</button>
+        </div>
+
+        <p id="message" class="message"></p>
+    </div>
+
+    <script>
+        // Function to update Date and Time every second
+        function updateDateTime() {
+            const dateTimeDisplay = document.getElementById('dateTime');
+            const now = new Date();
+            const formattedDate = now.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const formattedTime = now.toLocaleTimeString();
+            dateTimeDisplay.textContent = `${formattedDate} - ${formattedTime}`;
+        }
+        setInterval(updateDateTime, 1000); // Update the time every second
+        updateDateTime(); // Initial call to display the time right away
+
+        // Function to automatically change between day, evening, night, and morning
+        function setDayNightCycle() {
+            const body = document.body;
+            const sun = document.querySelector('.sun');
+            const moon = document.querySelector('.moon');
+            const hour = new Date().getHours();
+
+            if (hour >= 5 && hour < 10) {
+                // Morning - Sunrise
+                body.className = 'morning';
+                sun.style.display = 'block';
+                moon.style.display = 'none';
+            } else if (hour >= 10 && hour < 17) {
+                // Day
+                body.className = 'day';
+                sun.style.display = 'block';
+                moon.style.display = 'none';
+            } else if (hour >= 17 && hour < 20) {
+                // Evening - Sunset
+                body.className = 'evening';
+                sun.style.display = 'block';
+                moon.style.display = 'none';
+            } else {
+                // Night
+                body.className = 'night';
+                sun.style.display = 'none';
+                moon.style.display = 'block';
+            }
+        }
+        setDayNightCycle();
+        setInterval(setDayNightCycle, 60000); // Check every minute to update based on time
+
+        // Toggle between login and register forms
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const message = document.getElementById('message');
+
+        loginBtn.addEventListener('click', function() {
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+            message.textContent = ''; // Clear message on form switch
+        });
+
+        registerBtn.addEventListener('click', function() {
+            registerForm.classList.add('active');
+            loginForm.classList.remove('active');
+            message.textContent = ''; // Clear message on form switch
+        });
+
+        // Simulated login functionality
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (email === "admin@college.com" && password === "admin123") {
+                message.style.color = "green";
+                message.textContent = "Login successful!";
+            } else {
+                message.style.color = "red";
+                message.textContent = "Invalid credentials. Please try again.";
+            }
+        }
+
+        // Simulated registration functionality
+        function register() {
+            const role = document.getElementById('registerRole').value;
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            if (!role) {
+                message.textContent = "Please select your role.";
+                return;
+            }
+
+            if (name && email && password) {
+                message.style.color = "green";
+                message.textContent = `${role.charAt(0).toUpperCase() + role.slice(1)} registration successful!`;
+            } else {
+                message.style.color = "red";
+                message.textContent = "Please fill all the fields.";
+            }
+        }
+    </script>
+
+</body>
+</html>

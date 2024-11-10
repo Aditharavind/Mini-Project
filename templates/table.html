@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-bar input[type="text"] {
+            padding: 10px;
+            width: 70%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .search-bar select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Table Data Viewer</h1>
+
+        <!-- Search and Table Selection Form -->
+        <div class="search-container">
+            <form method="GET" class="search-bar">
+                <!-- Table Selection Dropdown -->
+                <select name="table">
+                    <option value="student" {% if selected_table == 'student' %}selected{% endif %}>Students</option>
+                    <option value="customer" {% if selected_table == 'customer' %}selected{% endif %}>Customers</option>
+                    <option value="employee" {% if selected_table == 'employee' %}selected{% endif %}>Employees</option>
+                </select>
+                
+                <!-- Search Bar -->
+                <input type="text" name="search" placeholder="Search..." value="{{ search_query }}">
+
+                <!-- Search Button -->
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Data Table -->
+        <table>
+            <thead>
+                <tr>
+                    {% for col in columns %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if data %}
+                    {% for row in data %}
+                    <tr>
+                        {% if selected_table == 'student' %}
+                        <td>{{ row.roll_no }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ row.age }}</td>
+                        {% elif selected_table == 'customer' %}
+                        <td>{{ row.customer_name }}</td>
+                        <td>{{ row.country }}</td>
+                        {% elif selected_table == 'employee' %}
+                        <td>{{ row.employee_id }}</td>
+                        <td>{{ row.employee_name }}</td>
+                        <td>{{ row.designation }}</td>
+                        <td>₹{{ row.salary }}</td>
+                        <td>₹{{ row.retirement }}</td>
+                        <td>₹{{ row.other_benefits }}</td>
+                        <td>₹{{ row.total_benefits }}</td>
+                        <td>₹{{ row.total_compensation }}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="{{ columns|length }}">No data found</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
